@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOPE Charity Fund</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf9f4;
+            color: #333;
+        }
+        header {
+            background-color: #8e5a3d; /* Darker brown */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        nav {
+            background-color: #fff;
+            padding: 10px 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        nav a {
+            margin: 0 20px;
+            color: #8e5a3d; /* Darker brown */
+            text-decoration: none;
+            font-size: 18px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            height: 40px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: none;
+        }
+        main.active {
+            display: block;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #8e5a3d; /* Darker brown */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #6a3e26; /* Slightly darker brown */
+        }
+        #result {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        th {
+            background-color: #f2e6d9;
+        }
+        a {
+            color: #8e5a3d; /* Darker brown */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .whitepaper {
+            margin-top: 40px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .whitepaper h3 {
+            color: #8e5a3d;
+        }
+        .projects-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .projects-table th, .projects-table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .projects-table th {
+            background-color: #f2e6d9;
+        }
+        footer {
+            background-color: #8e5a3d; /* Darker brown */
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="C:\Users\nhamx\Desktop\logoHOPE.png" alt="HOPE Charity Fund Logo" class="logo"> HOPE Charity Fund
+    </header>
+    <nav>
+        <a href="javascript:void(0);" onclick="showPage('lookup')">Contributor Lookup</a>
+        <a href="javascript:void(0);" onclick="showPage('whitepaper')">White Paper</a>
+        <a href="javascript:void(0);" onclick="showPage('projects')">Charity Projects</a>
+    </nav>
+
+    <!-- Contributor Lookup -->
+    <main id="lookup" class="active">
+        <h2>Contributor Lookup</h2>
+        <p>Enter a wallet address to check its contributions and transactions:</p>
+        <input type="text" id="walletAddress" placeholder="Enter Wallet Address">
+        <button onclick="lookup()">Lookup</button>
+        <div id="result"></div>
+    </main>
+
+    <!-- White Paper -->
+    <main id="whitepaper">
+        <div class="whitepaper">
+            <h3>HOPE Charity Fund White Paper</h3>
+            <p><strong>Introduction:</strong> The HOPE Charity Fund (HOPE) is a charitable organization that utilizes blockchain technology to provide transparent and efficient charitable donations. Our mission is to harness the power of cryptocurrency to support social causes and help those in need.</p>
+            <p><strong>Objectives:</strong> The HOPE Charity Fund aims to:
+                <ul>
+                    <li>Provide financial aid to underprivileged communities around the world.</li>
+                    <li>Support sustainable development projects in education, health, and the environment.</li>
+                    <li>Promote blockchain adoption for charitable purposes, ensuring transparency and security.</li>
+                </ul>
+            </p>
+            <p><strong>Token Overview:</strong> The HOPE token is an ERC-20 compatible token on the Binance Smart Chain. It is used for donations, voting on charitable initiatives, and rewarding contributors.</p>
+            <p><strong>Governance:</strong> HOPE Charity Fund operates with decentralized governance, where token holders have the ability to propose and vote on charitable projects. This allows the community to play an active role in decision-making.</p>
+            <p><strong>Fund Allocation:</strong> A percentage of each donation made via the HOPE token will go towards the operational costs of the charity, with the remainder directly funding charitable causes.</p>
+            <p><strong>Conclusion:</strong> The HOPE Charity Fund represents a revolutionary way to contribute to global humanitarian efforts, using the transparency and security of blockchain to ensure that every donation is used effectively. Join us in making the world a better place through the power of cryptocurrency!</p>
+        </div>
+    </main>
+
+    <!-- Charity Projects -->
+    <main id="projects">
+        <h2>Charity Projects</h2>
+        <p>Explore our ongoing charity projects and track their progress:</p>
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Description</th>
+                    <th>Progress</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Education for All</td>
+                    <td>A project aimed at providing school supplies and resources for children in underprivileged areas.</td>
+                    <td>50% - Fundraising in progress, initial supplies distributed to 5 schools.</td>
+                </tr>
+                <tr>
+                    <td>Healthcare Access</td>
+                    <td>Providing medical care and essential healthcare resources to rural communities.</td>
+                    <td>30% - Clinics established, awaiting further funds for medicines.</td>
+                </tr>
+                <tr>
+                    <td>Clean Water Initiative</td>
+                    <td>Providing clean drinking water solutions to areas affected by drought.</td>
+                    <td>75% - Water filtration systems installed in 10 villages, next phase: maintenance.</td>
+                </tr>
+                <tr>
+                    <td>Sustainable Agriculture</td>
+                    <td>Supporting farmers with sustainable agricultural practices to improve crop yield and food security.</td>
+                    <td>20% - Training provided to 100 farmers, looking for additional support.</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        const CONTRACT_ADDRESS = "0x1370c0DEB0ff81504DF5a1C9eA4f93d6aD3765A9";
+        const API_KEY = "Y1SV4XU92KGYUXHMPFNWAUEKND8WIFQEJC";
+
+        async function lookup() {
+            const walletAddress = document.getElementById('walletAddress').value.trim();
+            const resultDiv = document.getElementById("result");
+
+            if (!walletAddress) {
+                resultDiv.innerHTML = "<p>Please enter a valid wallet address.</p>";
+                return;
+            }
+
+            try {
+                const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${CONTRACT_ADDRESS}&address=${walletAddress}&apikey=${API_KEY}`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status === "1" && data.result.length > 0) {
+                    let html = `<table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Transaction Hash</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                    data.result.forEach(tx => {
+                        const date = new Date(tx.timeStamp * 1000).toLocaleString();
+                        const amount = (parseFloat(tx.value) / Math.pow(10, 6)).toFixed(6); // Adjust decimals if HOPE uses 6 decimals
+                        const txHash = `<a href="https://bscscan.com/tx/${tx.hash}" target="_blank">${tx.hash.slice(0, 10)}...</a>`;
+                        
+                        html += `<tr>
+                            <td>${date}</td>
+                            <td>${amount} HOPE</td>
+                            <td>${txHash}</td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+                    resultDiv.innerHTML = html;
+                } else {
+                    resultDiv.innerHTML = "<p>No transactions found for this wallet address.</p>";
+                }
+            } catch (error) {
+                resultDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
+            }
+        }
+
+        function showPage(page) {
+            const pages = document.querySelectorAll('main');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+        }
+    </script>
+
+    <footer>
+        <p>© 2024 HOPE Charity Fund. All rights reserved.</p>
+    </footer>
+</body>
+</html>
