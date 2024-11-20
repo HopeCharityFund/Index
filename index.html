@@ -231,6 +231,15 @@
                 } else {
                     resultDiv.innerHTML = "<p>No transactions found for this wallet address.</p>";
                 }
+             // Hiển thị số dư của ví với dấu phẩy phân cách phần nghìn
+        if (balanceData.status === "1") {
+            const balance = (parseFloat(balanceData.result) / Math.pow(10, 6)).toFixed(6); // Chỉnh lại số thập phân (6 chữ số)
+            const formattedBalance = parseFloat(balance).toLocaleString(); // Thêm dấu phẩy phân cách phần nghìn
+            resultDiv.innerHTML += `<p><strong>Current Balance:</strong> ${formattedBalance} HOPE</p>`;
+        } else {
+            resultDiv.innerHTML += "<p>Failed to fetch balance information.</p>";
+        }
+                
             } catch (error) {
                 resultDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
             }
