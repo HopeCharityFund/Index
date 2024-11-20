@@ -188,8 +188,7 @@
     <script>
         const CONTRACT_ADDRESS = "0x1370c0DEB0ff81504DF5a1C9eA4f93d6aD3765A9";
         const API_KEY = "Y1SV4XU92KGYUXHMPFNWAUEKND8WIFQEJC";
-
-        async function lookup() {
+ async function lookup() {
             const walletAddress = document.getElementById('walletAddress').value.trim();
             const resultDiv = document.getElementById("result");
 
@@ -199,11 +198,17 @@
             }
 
             try {
-                const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${CONTRACT_ADDRESS}&address=${walletAddress}&apikey=${API_KEY}`;
-                const response = await fetch(url);
-                const data = await response.json();
+                // Lấy thông tin giao dịch
+                const txUrl = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${CONTRACT_ADDRESS}&address=${walletAddress}&apikey=${API_KEY}`;
+                const txResponse = await fetch(txUrl);
+                const txData = await txResponse.json();
 
-                if (data.status === "1" && data.result.length > 0) {
+                // Lấy số dư của token HOPE
+                const balanceUrl = `https://api.bscscan.com/api?module=account&action=tokenbalance&contractaddress=${CONTRACT_ADDRESS}&address=${walletAddress}&tag=latest&apikey=${API_KEY}`;
+                const balanceResponse = await fetch(balanceUrl);
+                const balanceData = await balanceResponse.json();
+
+                if (txData.status === "1" && txData.result.length > 0) {
                     let html = `<table>
                         <thead>
                             <tr>
@@ -214,9 +219,9 @@
                         </thead>
                         <tbody>`;
 
-                    data.result.forEach(tx => {
+                    txData.result.forEach(tx => {
                         const date = new Date(tx.timeStamp * 1000).toLocaleString();
-                        const amount = (parseFloat(tx.value) / Math.pow(10, 6)).toFixed(6); // Adjust decimals if HOPE uses 6 decimals
+                        const amount = (parseFloat(tx.value) / Math.pow(10, 6)).toFixed(6); // Chỉnh sửa số thập phân nếu cần
                         const txHash = `<a href="https://bscscan.com/tx/${tx.hash}" target="_blank">${tx.hash.slice(0, 10)}...</a>`;
                         
                         html += `<tr>
@@ -231,7 +236,8 @@
                 } else {
                     resultDiv.innerHTML = "<p>No transactions found for this wallet address.</p>";
                 }
-             // Hiển thị số dư của ví với dấu phẩy phân cách phần nghìn
+
+                   // Hiển thị số dư của ví với dấu phẩy phân cách phần nghìn
         if (balanceData.status === "1") {
             const balance = (parseFloat(balanceData.result) / Math.pow(10, 6)).toFixed(6); // Chỉnh lại số thập phân (6 chữ số)
             const formattedBalance = parseFloat(balance).toLocaleString(); // Thêm dấu phẩy phân cách phần nghìn
@@ -239,7 +245,7 @@
         } else {
             resultDiv.innerHTML += "<p>Failed to fetch balance information.</p>";
         }
-                
+
             } catch (error) {
                 resultDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
             }
@@ -250,6 +256,7 @@
             pages.forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
         }
+      
     </script>
 
     <footer>
