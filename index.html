@@ -341,14 +341,14 @@ async function fetchTopContributors() {
         topContributorsDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
     }
 }
-
-// Gọi hàm khi trang được tải
-document.addEventListener("DOMContentLoaded", fetchTopContributors);
    function showPage(page) {
             const pages = document.querySelectorAll('main');
             pages.forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
         }
+// Gọi hàm khi trang được tải
+document.addEventListener("DOMContentLoaded", fetchTopContributors);
+
         
     </script>
 
