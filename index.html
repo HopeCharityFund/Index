@@ -317,12 +317,14 @@
                 <thead>
                     <tr><th>Rank</th><th>Wallet</th><th>Amount (HOPE)</th></tr>
                 </thead><tbody>`;
-            sorted.forEach(([wallet, amount], i) => {
+           sorted.forEach(([wallet, amount], i) => {
+                const walletShort = `${wallet.slice(0, 6)}...${wallet.slice(-4)}`; // Rút gọn ví
+                const walletLink = `https://bscscan.com/address/${wallet}`; // Link tới BscScan
                 html += `<tr>
                     <td>${i + 1}</td>
-                    <td>${wallet.slice(0, 6)}...${wallet.slice(-4)}</td>
-                    <td>${amount.toLocaleString(undefined, {minimumFractionDigits: 6, maximumFractionDigits: 6})}</td>
-                </tr>`;
+                    <td><a href="${walletLink}" target="_blank">${walletShort}</a></td> <!-- Tạo link -->
+                <td>${amount.toLocaleString(undefined, {minimumFractionDigits: 6, maximumFractionDigits: 6})}</td>
+                        </tr>`;
             });
             html += `</tbody></table>`;
             contentDiv.innerHTML = html;
