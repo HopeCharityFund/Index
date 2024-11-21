@@ -165,7 +165,7 @@
         <div id="result"></div>
 
          <h3 style="margin-top: 40px;">Top 10 Contributors</h3>
-            <div id="topContributors">
+            <div id="topContributorsContent">
             <p>Loading top contributors...</p>
             </div>
     </main>
@@ -336,15 +336,18 @@
 
 
 
-   function showPage(page) {
-            const pages = document.querySelectorAll('main');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-        }
+ //  function showPage(page) {
+ //           const pages = document.querySelectorAll('main');
+  //          pages.forEach(p => p.classList.remove('active'));
+  //          document.getElementById(page).classList.add('active');
+  //      }
 // Gọi hàm khi trang được tải
-document.addEventListener("DOMContentLoaded", fetchTopContributors);
+//document.addEventListener("DOMContentLoaded", fetchTopContributors);
 
-        
+        window.onload = function() {
+    fetchTopDistributors(); // Gọi hàm khi tải trang
+};
+
     </script>
 
     <footer>
