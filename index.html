@@ -288,13 +288,7 @@
         resultDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
     }
 }
-
-
-        function showPage(page) {
-            const pages = document.querySelectorAll('main');
-            pages.forEach(p => p.classList.remove('active'));
-            document.getElementById(page).classList.add('active');
-        }
+   
 
 async function fetchTopContributors() {
     const topContributorsDiv = document.getElementById("topContributors");
@@ -350,7 +344,11 @@ async function fetchTopContributors() {
 
 // Gọi hàm khi trang được tải
 document.addEventListener("DOMContentLoaded", fetchTopContributors);
-
+   function showPage(page) {
+            const pages = document.querySelectorAll('main');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+        }
         
     </script>
 
