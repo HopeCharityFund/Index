@@ -288,59 +288,54 @@
         resultDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
     }
 }
-   
-
-async function fetchTopContributors() {
-    const topContributorsDiv = document.getElementById("topContributors");
+   async function fetchTopDistributors() {
+    const contentDiv = document.getElementById("topContributorsContent");
 
     try {
         const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${CONTRACT_ADDRESS}&sort=desc&apikey=${API_KEY}`;
         const response = await fetch(url);
         const data = await response.json();
 
-        if (data.status === "1" && data.result.length > 0) {
-            const contributions = {};
+        if (data.status === "1") {
+            const distributors = {};
+            const CHARITY_WALLET = "0x1cb0934F66809AcA9EE7EcAb42328BD0DE8e9036".toLowerCase(); // Địa chỉ ví từ thiện
+            const DECIMALS = 6; // HOPE token decimals
 
-            // Tính toán tổng số token của mỗi ví
             data.result.forEach(tx => {
-                const wallet = tx.to.toLowerCase();
-                const amount = parseFloat(tx.value) / Math.pow(10, 6); // Adjust decimals
-                contributions[wallet] = (contributions[wallet] || 0) + amount;
+                if (tx.to.toLowerCase() === CHARITY_WALLET) {
+                    const wallet = tx.from.toLowerCase();
+                    const amount = parseFloat(tx.value) / Math.pow(10, DECIMALS); // Adjust for decimals
+                    distributors[wallet] = (distributors[wallet] || 0) + amount;
+                }
             });
 
-            // Sắp xếp và lấy top 10
-            const sortedContributors = Object.entries(contributions)
-                .sort((a, b) => b[1] - a[1]) // Sort by amount (desc)
-                .slice(0, 10); // Top 10
+            const sorted = Object.entries(distributors)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
 
-            // Hiển thị kết quả
             let html = `<table>
                 <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Wallet Address</th>
-                        <th>Amount (HOPE)</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-
-            sortedContributors.forEach(([wallet, amount], index) => {
+                    <tr><th>Rank</th><th>Wallet</th><th>Amount (HOPE)</th></tr>
+                </thead><tbody>`;
+            sorted.forEach(([wallet, amount], i) => {
                 html += `<tr>
-                    <td>${index + 1}</td>
-                    <td><a href="https://bscscan.com/address/${wallet}" target="_blank">${wallet.slice(0, 6)}...${wallet.slice(-4)}</a></td>
-                    <td>${amount.toLocaleString()} HOPE</td>
+                    <td>${i + 1}</td>
+                    <td>${wallet.slice(0, 6)}...${wallet.slice(-4)}</td>
+                    <td>${amount.toLocaleString(undefined, {minimumFractionDigits: 6, maximumFractionDigits: 6})}</td>
                 </tr>`;
             });
-
             html += `</tbody></table>`;
-            topContributorsDiv.innerHTML = html;
+            contentDiv.innerHTML = html;
         } else {
-            topContributorsDiv.innerHTML = "<p>No contributors found.</p>";
+            contentDiv.innerHTML = "<p>No distributors found.</p>";
         }
     } catch (error) {
-        topContributorsDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
+        contentDiv.innerHTML = "<p>Error fetching distributors.</p>";
     }
 }
+
+
+
    function showPage(page) {
             const pages = document.querySelectorAll('main');
             pages.forEach(p => p.classList.remove('active'));
