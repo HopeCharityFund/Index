@@ -336,18 +336,17 @@
 
 
 
- //  function showPage(page) {
- //           const pages = document.querySelectorAll('main');
-  //          pages.forEach(p => p.classList.remove('active'));
-  //          document.getElementById(page).classList.add('active');
-  //      }
+  function showPage(page) {
+         const pages = document.querySelectorAll('main');
+         pages.forEach(p => p.classList.remove('active'));
+          document.getElementById(page).classList.add('active');
+     }
 // Gọi hàm khi trang được tải
-//document.addEventListener("DOMContentLoaded", fetchTopContributors);
-
-        window.onload = function() {
-    fetchTopDistributors(); // Gọi hàm khi tải trang
-};
-
+document.addEventListener("DOMContentLoaded", fetchTopContributors);
+    
+    
+    
+    
     </script>
 
     <footer>
