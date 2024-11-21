@@ -341,7 +341,9 @@
          pages.forEach(p => p.classList.remove('active'));
           document.getElementById(page).classList.add('active');
      }
- 
+ window.onload = function() {
+    fetchTopDistributors(); // Gọi hàm khi tải trang
+};
            
     </script>
 
