@@ -125,6 +125,22 @@
             margin-top: 40px;
             font-size: 14px;
         }
+        #topContributors table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#topContributors th, #topContributors td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+#topContributors th {
+    background-color: #f2e6d9;
+}
+
     </style>
 </head>
 <body>
@@ -147,6 +163,11 @@
         <input type="text" id="walletAddress" placeholder="Enter Wallet Address">
         <button onclick="lookup()">Lookup</button>
         <div id="result"></div>
+
+         <h3 style="margin-top: 40px;">Top 10 Contributors</h3>
+            <div id="topContributors">
+            <p>Loading top contributors...</p>
+            </div>
     </main>
 
     <!-- White Paper -->
@@ -274,7 +295,63 @@
             pages.forEach(p => p.classList.remove('active'));
             document.getElementById(page).classList.add('active');
         }
-      
+
+async function fetchTopContributors() {
+    const topContributorsDiv = document.getElementById("topContributors");
+
+    try {
+        const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${CONTRACT_ADDRESS}&sort=desc&apikey=${API_KEY}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.status === "1" && data.result.length > 0) {
+            const contributions = {};
+
+            // Tính toán tổng số token của mỗi ví
+            data.result.forEach(tx => {
+                const wallet = tx.to.toLowerCase();
+                const amount = parseFloat(tx.value) / Math.pow(10, 6); // Adjust decimals
+                contributions[wallet] = (contributions[wallet] || 0) + amount;
+            });
+
+            // Sắp xếp và lấy top 10
+            const sortedContributors = Object.entries(contributions)
+                .sort((a, b) => b[1] - a[1]) // Sort by amount (desc)
+                .slice(0, 10); // Top 10
+
+            // Hiển thị kết quả
+            let html = `<table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Wallet Address</th>
+                        <th>Amount (HOPE)</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+            sortedContributors.forEach(([wallet, amount], index) => {
+                html += `<tr>
+                    <td>${index + 1}</td>
+                    <td><a href="https://bscscan.com/address/${wallet}" target="_blank">${wallet.slice(0, 6)}...${wallet.slice(-4)}</a></td>
+                    <td>${amount.toLocaleString()} HOPE</td>
+                </tr>`;
+            });
+
+            html += `</tbody></table>`;
+            topContributorsDiv.innerHTML = html;
+        } else {
+            topContributorsDiv.innerHTML = "<p>No contributors found.</p>";
+        }
+    } catch (error) {
+        topContributorsDiv.innerHTML = "<p>An error occurred while fetching data. Please try again later.</p>";
+    }
+}
+
+// Gọi hàm khi trang được tải
+document.addEventListener("DOMContentLoaded", fetchTopContributors);
+
+        
     </script>
 
     <footer>
